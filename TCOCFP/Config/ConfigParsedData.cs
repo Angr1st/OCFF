@@ -24,6 +24,8 @@ namespace TCOCFP
             }
         }
 
+        public Dictionary<string, List<ConfigSection>> GetDataStore() => new Dictionary<string, List<ConfigSection>>(DataStore);
+
         public void AddRange(IEnumerable<ConfigSection> list)
         {
             list.ToList().ForEach(x => Add(x));
