@@ -2,6 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Description>TCOCFP or Torben Clasens Omnipotent Config File Format is a Package that Provides the capabillitys of the OCFP-Format in a .NET Library.</Description>
+    <Authors>Torben Clasen</Authors>
+    <Company>ITVT GmbH</Company>
   </PropertyGroup>
 
 </Project>
