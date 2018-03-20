@@ -8,6 +8,7 @@ namespace OCFF
     {
         public string Key;
         public string Value;
+        public string RawValue;
         public bool IsString;
         private List<ConfigComputeSet> ComputeVariables;
         private List<ConfigReplaceSet> ReplaceVariables;
@@ -22,6 +23,7 @@ namespace OCFF
             EnumerationFuncs = enumerationFuncs;
             Key = key;
             Value = value;
+            RawValue = value;
             if (isStringHeader)
             {
                 ReplaceVariables = new List<ConfigReplaceSet>();
