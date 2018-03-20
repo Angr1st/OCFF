@@ -10,7 +10,7 @@ namespace OCFF
 
         public ConfigComment(string commment)
         {
-            Comment = Comment;
+            Comment = commment;
         }
     }
 }
