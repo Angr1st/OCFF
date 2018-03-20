@@ -6,10 +6,10 @@ namespace OCFF
 {
     public class ConfigSection
     {
-        public string Key;
-        public string Value;
-        public string RawValue;
-        public bool IsString;
+        public string Key { get; }
+        public string Value { get; }
+        public string RawValue { get; }
+        public bool IsString { get; }
         private List<ConfigComputeSet> ComputeVariables;
         private List<ConfigReplaceSet> ReplaceVariables;
         private List<ConfigEnumerationSet> EnumerationVariables;
@@ -53,6 +53,11 @@ namespace OCFF
 
         public ConfigSection(string key, List<string> valueList, bool isStringHeader, IComputeFunc computeFuncs, IEnumerationFunc enumerationFuncs) : this(key, string.Join("\n", valueList), isStringHeader, computeFuncs, enumerationFuncs)
         { }
+
+        public ConfigSection ChangeValue(string newValue)
+        {
+            return new ConfigSection(Key, newValue, IsString, ComputeFuncs, EnumerationFuncs);
+        }
 
         public List<IConfigSet> ReturnAllVariables()
         {

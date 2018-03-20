@@ -46,6 +46,23 @@ namespace OCFF
             }
         }
 
+        public bool RewriteNodeInsideDatastore(string key, string value)
+        {
+            if (!KeyExsists(key))
+            {
+                return false;
+            }
+            else
+            {
+                var element = DataStore.First(x => x.Key == key);
+                var indexOfElement = DataStore.IndexOf(element);
+                var newElement = element.ChangeValue(value);
+                DataStore.RemoveAt(indexOfElement);
+                DataStore.Insert(indexOfElement, newElement);
+                return true;
+            }
+        }
+
         public ConfigParsedData ComputeAndReplace(IArguments arguments, IComputeFunc computeFuncs, IEnumerationFunc enumerationFuncs)
         {
             var newConfigData = new ConfigParsedData();
