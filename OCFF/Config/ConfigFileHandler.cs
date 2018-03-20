@@ -94,9 +94,9 @@ namespace OCFF
             }
 
             var header = lines.First();
-            var parsedHeader = ParseHeader(header);
+            var (key, IsStringHeader) = ParseHeader(header);
 
-            return CreateConfigSection(parsedHeader.key, ParseSubSection(lines), parsedHeader.IsStringHeader);
+            return CreateConfigSection(key, ParseSubSection(lines), IsStringHeader);
         }
 
         private List<string> ParseSubSection(List<string> lines)

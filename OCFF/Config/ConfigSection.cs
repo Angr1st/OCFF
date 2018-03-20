@@ -7,7 +7,7 @@ namespace OCFF
     public class ConfigSection
     {
         public string Key { get; }
-        public string Value { get; }
+        public string Value { get; private set; }
         public string RawValue { get; }
         public bool IsString { get; }
         private List<ConfigComputeSet> ComputeVariables;
