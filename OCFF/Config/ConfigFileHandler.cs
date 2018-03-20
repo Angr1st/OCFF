@@ -45,15 +45,15 @@ namespace OCFF
                 var fileContent = File.ReadLines(GetFilePath());
                 foreach (var line in fileContent)
                 {
-                    if ((string.IsNullOrWhiteSpace(line)) && lines.Count > 0)
-                    {
-                        ConfigData.Add(ParseSection(lines));
-                        lines = new List<string>();
-                    }
-                    else if (line.StartsWith("#"))
+                    if (line.StartsWith("#"))
                     {
                         ConfigData.AddComment(new ConfigComment(line));
                     }
+                    else if (string.IsNullOrWhiteSpace(line) && lines.Count > 0)
+                    {
+                        ConfigData.Add(ParseSection(lines));
+                        lines = new List<string>();
+                    } 
                     else if (!string.IsNullOrWhiteSpace(line) && !line.StartsWith("#"))
                     {
                         lines.Add(line);
