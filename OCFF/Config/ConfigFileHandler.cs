@@ -40,14 +40,19 @@ namespace OCFF
         {
             try
             {
+
                 var lines = new List<string>();
                 var fileContent = File.ReadLines(GetFilePath());
                 foreach (var line in fileContent)
                 {
-                    if ((string.IsNullOrWhiteSpace(line) || line.StartsWith("#")) && lines.Count > 0)
+                    if ((string.IsNullOrWhiteSpace(line)) && lines.Count > 0)
                     {
                         ConfigData.Add(ParseSection(lines));
                         lines = new List<string>();
+                    }
+                    else if (line.StartsWith("#"))
+                    {
+                        ConfigData.AddComment(new ConfigComment(line));
                     }
                     else if (!string.IsNullOrWhiteSpace(line) && !line.StartsWith("#"))
                     {

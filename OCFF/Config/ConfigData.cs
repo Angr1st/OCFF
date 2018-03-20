@@ -6,10 +6,12 @@ namespace OCFF
 {
     class ConfigData
     {
+        private List<ConfigComment> Comments;
         private List<ConfigSection> DataStore;
 
         public ConfigData()
         {
+            Comments = new List<ConfigComment>();
             DataStore = new List<ConfigSection>();
         }
 
@@ -21,6 +23,19 @@ namespace OCFF
             }
 
             DataStore.Add(configSection);
+        }
+
+        public void AddComment(ConfigComment comment)
+        {
+            Comments.Add(comment);
+        }
+
+        public void AddCommentRange(IEnumerable<ConfigComment> configComments)
+        {
+            foreach (var item in configComments)
+            {
+                AddComment(item);
+            }
         }
 
         public void AddRange(IEnumerable<ConfigSection> configSections)
