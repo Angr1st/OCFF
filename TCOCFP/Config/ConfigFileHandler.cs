@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace TCOCFP
+namespace OCFF
 {
     public class ConfigFileHandler
     {
@@ -13,7 +13,7 @@ namespace TCOCFP
         private IEnumerationFunc EnumerationFuncs;
         private string FileName { get; }
 
-        public ConfigFileHandler(IComputeFunc computeFuncs, IEnumerationFunc enumerationFuncs, string fileName = "ConfigFile.ocfp")
+        public ConfigFileHandler(IComputeFunc computeFuncs, IEnumerationFunc enumerationFuncs, string fileName = "ConfigFile.ocff")
         {
             ComputeFuncs = computeFuncs;
             EnumerationFuncs = enumerationFuncs;

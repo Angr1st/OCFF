@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace TCOCFP
+namespace OCFF
 {
     class ConfigData
     {

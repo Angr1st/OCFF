@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TCOCFP
+namespace OCFF
 {
     public class ConfigSection
     {

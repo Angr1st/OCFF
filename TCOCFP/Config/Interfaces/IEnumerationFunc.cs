@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TCOCFP
+namespace OCFF
 {
     public interface IEnumerationFunc
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TCOCFP
+namespace OCFF
 {
     public interface IComputeFunc
     {

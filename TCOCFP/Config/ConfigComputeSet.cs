@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TCOCFP
+namespace OCFF
 {
     class ConfigComputeSet : IConfigSet
     {

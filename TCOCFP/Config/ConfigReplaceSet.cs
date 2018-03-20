@@ -1,4 +1,4 @@
-﻿namespace TCOCFP
+﻿namespace OCFF
 {
     class ConfigReplaceSet : IConfigSet
     {
