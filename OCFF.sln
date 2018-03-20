@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OCFF", "TCOCFP\OCFF.csproj", "{38E4FADA-7D68-4724-9CB8-89703F888FC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OCFF", "OCFF\OCFF.csproj", "{38E4FADA-7D68-4724-9CB8-89703F888FC9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
