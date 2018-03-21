@@ -30,15 +30,15 @@ namespace OCFF
         public void InitConfigFile(bool overwrite)
         {
             var filePath = GetFilePath();
-            var fileExsists = File.Exists(filePath);
+            var fileExsists = FileSystem.File.Exists(filePath);
             if (fileExsists && overwrite)
             {
-                File.Delete(filePath);
-                File.CreateText(filePath);
+                FileSystem.File.Delete(filePath);
+                FileSystem.File.Create(filePath);
             }
             else if (!fileExsists)
             {
-                File.CreateText(filePath);
+                FileSystem.File.Create(filePath);
             }
         }
 
@@ -46,9 +46,8 @@ namespace OCFF
         {
             try
             {
-
                 var lines = new List<string>();
-                var fileContent = File.ReadLines(GetFilePath());
+                var fileContent = FileSystem.File.ReadLines(GetFilePath());
                 foreach (var line in fileContent)
                 {
                     if (line.StartsWith("#"))
@@ -131,6 +130,6 @@ namespace OCFF
 
         private bool IsWellFormedStringSectionHeader(string header) => header.StartsWith("[") && header.EndsWith("]");
         private bool IsWellFormedBoolSectionHeader(string header) => header.StartsWith("<") && header.EndsWith(">");
-        private string GetFilePath() => Path.Combine(Environment.CurrentDirectory, FileName);
+        private string GetFilePath() => Path.Combine( FileSystem.Directory.GetCurrentDirectory(), FileName);
     }
 }
