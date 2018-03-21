@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Abstractions;
 using System.Linq;
 
 namespace OCFF
@@ -11,15 +12,20 @@ namespace OCFF
         private ConfigParsedData ConfigParsedData;
         private IComputeFunc ComputeFuncs;
         private IEnumerationFunc EnumerationFuncs;
+        private readonly IFileSystem FileSystem;
         private string FileName { get; }
 
-        public ConfigFileHandler(IComputeFunc computeFuncs, IEnumerationFunc enumerationFuncs, string fileName = "ConfigFile.ocff")
+        public ConfigFileHandler(IComputeFunc computeFuncs, IEnumerationFunc enumerationFuncs, IFileSystem fileSystem , string fileName = "ConfigFile.ocff")
         {
+            FileSystem = fileSystem;
             ComputeFuncs = computeFuncs;
             EnumerationFuncs = enumerationFuncs;
             ConfigData = new ConfigData();
             FileName = fileName;
         }
+
+        public ConfigFileHandler(IComputeFunc computeFuncs, IEnumerationFunc enumerationFuncs, string fileName = "ConfigFile.ocff"): this(computeFuncs,enumerationFuncs,new FileSystem(),fileName)
+        { }
 
         public void InitConfigFile(bool overwrite)
         {

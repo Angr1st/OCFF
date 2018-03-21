@@ -8,4 +8,8 @@
     <Company>ITVT GmbH</Company>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.IO.Abstractions" Version="2.1.0.178" />
+  </ItemGroup>
+
 </Project>
