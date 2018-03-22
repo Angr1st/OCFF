@@ -9,7 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.IO.Abstractions" Version="2.1.0.178" />
+    <Reference Include="System.IO.Abstractions">
+      <HintPath>..\System.IO.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
