@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OCFF
 {
-    class ConfigComment
+    public class ConfigComment
     {
         public string Comment { get; }
 

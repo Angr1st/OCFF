@@ -42,6 +42,8 @@ namespace OCFF
             }
         }
 
+        public List<ConfigComment> GetConfigComments() => ConfigData.GetComments();
+
         public ConfigParsedData LoadConfigFromFile(IArguments arguments)
         {
             try

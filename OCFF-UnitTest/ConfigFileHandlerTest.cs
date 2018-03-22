@@ -56,6 +56,12 @@ namespace OCFF_UnitTest
             return fileSystem;
         }
 
+        private static MockFileSystem CreateMockFileSystem(string content)
+        {
+            var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData> { { @"c:\Test\ConfigFile.ocff", new MockFileData(content) } }, "c:\\Test");
+            return fileSystem;
+        }
+
         private static MockFileSystem CreateEmptyMockFileSystem()
         {
             var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData> { }, "c:\\Test");
@@ -77,6 +83,25 @@ namespace OCFF_UnitTest
             Assert.IsTrue(result.KeyExsists(key));
             var resultList = result.GetDataStoreEntry(key);
             Assert.IsTrue(resultList.FirstOrDefault().Value == "is meh.");
+        }
+
+        [TestMethod]
+        public void LoadConfigFileTestWithEmptyArgumentsWithComments()
+        {
+            var comment = "#This is a comment";
+            var fileSystem = CreateMockFileSystem(comment);
+            var sut = CreateConfigFileHandler(fileSystem);
+            var result = sut.LoadConfigFromFile(new EmptyArguments());
+            Assert.IsTrue(sut.GetConfigComments().FirstOrDefault().Comment == comment);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(System.IO.FileNotFoundException))]
+        public void LoadConfigFileTestWithEmptyArgumentsAndEmptyFileSystem()
+        {
+            var fileSystem = CreateEmptyMockFileSystem();
+            var sut = CreateConfigFileHandler(fileSystem);
+            var result = sut.LoadConfigFromFile(new EmptyArguments());
         }
     }
 }

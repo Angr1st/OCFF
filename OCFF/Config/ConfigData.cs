@@ -46,6 +46,8 @@ namespace OCFF
             }
         }
 
+        public List<ConfigComment> GetComments() => new List<ConfigComment>(Comments);
+
         public bool RewriteNodeInsideDatastore(string key, string value)
         {
             if (!KeyExsists(key))
