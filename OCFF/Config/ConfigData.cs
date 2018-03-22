@@ -81,17 +81,17 @@ namespace OCFF
                     if (innerItem is ConfigComputeSet)
                     {
                         var innerComputeItem = innerItem as ConfigComputeSet;
-                        stringBuilderList = stringBuilderList.SelectMany(y => dictionary[innerComputeItem.Name].Select(x => new StringBuilder(y.ToString().Replace(innerComputeItem.Token, innerComputeItem.Compute(x))))).ToList();
+                        stringBuilderList = stringBuilderList.SelectMany(y => GetParameter(innerComputeItem.Name,arguments,dictionary).Select(x => new StringBuilder(y.ToString().Replace(innerComputeItem.Token, innerComputeItem.Compute(x))))).ToList();
                     }
                     else if (innerItem is ConfigEnumerationSet)
                     {
                         var innerEnumerationItem = innerItem as ConfigEnumerationSet;
-                        var enumeration = innerEnumerationItem.GetEnumerable(arguments.GetArgument(innerEnumerationItem.Name));
+                        var enumeration = GetParameter(innerEnumerationItem.Name,arguments,dictionary).SelectMany(y=> innerEnumerationItem.GetEnumerable(y));
                         stringBuilderList = stringBuilderList.SelectMany(y => enumeration.Select(x => new StringBuilder(y.ToString().Replace(innerEnumerationItem.Token, x)))).ToList();
                     }
                     else
                     {
-                        stringBuilderList = stringBuilderList.SelectMany(y => dictionary[innerItem.Name].Select(x => new StringBuilder(y.ToString().Replace(innerItem.Token, x)))).ToList();
+                        stringBuilderList = stringBuilderList.SelectMany(y => GetParameter(innerItem.Name, arguments, dictionary).Select(x => new StringBuilder(y.ToString().Replace(innerItem.Token, x)))).ToList();
                     }
                 }
                 AddConfigSections(item, stringBuilderList);
@@ -115,6 +115,25 @@ namespace OCFF
         public IEnumerable<string> GetValues() => DataStore.Select(x => x.Value);
 
         public string Read(string key) => DataStore.Find(x => x.Key == key).Value;
+
+        private IEnumerable<string> GetParameter(string argumentName,IArguments arguments, Dictionary<string, List<string>> dict)
+        {
+            try
+            {
+                return new List<string> { arguments.GetArgument(argumentName) };
+            }
+            catch (System.Exception)
+            {
+                try
+                {
+                    return dict[argumentName];
+                }
+                catch
+                {
+throw;
+                }
+            }
+        }
 
         private Dictionary<string, string> TurnListConfigSectionIntoDict()
         {
