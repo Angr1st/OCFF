@@ -26,6 +26,8 @@ namespace OCFF
 
         public Dictionary<string, List<ConfigSection>> GetDataStore() => new Dictionary<string, List<ConfigSection>>(DataStore);
 
+        public List<ConfigSection> GetDataStoreEntry(string key) => DataStore[key];
+
         public void AddRange(IEnumerable<ConfigSection> list)
         {
             list.ToList().ForEach(x => Add(x));

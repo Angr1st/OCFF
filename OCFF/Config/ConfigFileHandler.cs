@@ -68,12 +68,12 @@ namespace OCFF
                 {
                     ConfigData.Add(ParseSection(lines));
                 }
+                return ConfigParsedData = ConfigData.ComputeAndReplace(arguments, ComputeFuncs, EnumerationFuncs);
             }
             catch (Exception ex)
             {
                 throw ex;
-            }
-            return ConfigParsedData = ConfigData.ComputeAndReplace(arguments, ComputeFuncs, EnumerationFuncs);
+            }   
         }
 
         public void WriteToConfig(string section, string value)

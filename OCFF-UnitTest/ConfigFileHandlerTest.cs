@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO.Abstractions.TestingHelpers;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -26,14 +27,35 @@ namespace OCFF_UnitTest
 
         private static string InitConfigFile(bool overwrite)
         {
-            var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData> { { @"c:\Test\ConfigFile.ocff", new MockFileData("[Testing]\nis meh.") } }, "c:\\Test");
-            var sut = new ConfigFileHandler(new EmptyComputeFuncs(), new EmptyEnumerationFuncs(), fileSystem);
+            MockFileSystem fileSystem = CreateMockFileSystem();
+            var sut = CreateConfigFileHandler(fileSystem);
             sut.InitConfigFile(overwrite);
             var configFile = fileSystem.GetFile(@"c:\Test\ConfigFile.ocff");
             var content = Encoding.UTF8.GetString(configFile.Contents);
             return content;
         }
 
+        private static MockFileSystem CreateMockFileSystem()
+        {
+            var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData> { { @"c:\Test\ConfigFile.ocff", new MockFileData("[Testing]\nis meh.") } }, "c:\\Test");
+            return fileSystem;
+        }
 
+        private static ConfigFileHandler CreateConfigFileHandler(MockFileSystem fileSystem)
+        {
+            return new ConfigFileHandler(new EmptyComputeFuncs(), new EmptyEnumerationFuncs(), fileSystem);
+        }
+
+        [TestMethod]
+        public void LoadConfigFileTestWithEmptyArguments()
+        {
+            var key = "Testing";
+            var fileSystem = CreateMockFileSystem();
+            var sut = CreateConfigFileHandler(fileSystem);
+            var result = sut.LoadConfigFromFile(new EmptyArguments());
+            Assert.IsTrue(result.KeyExsists(key));
+            var resultList = result.GetDataStoreEntry(key);
+            Assert.IsTrue(resultList.FirstOrDefault().Value == "is meh.");
+        }
     }
 }
