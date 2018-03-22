@@ -94,6 +94,16 @@ namespace OCFF_UnitTest
         }
 
         [TestMethod]
+        [ExpectedException(typeof(FormatException))]
+        public void LoadConfigFileTestWithEmptyArgumentsAndWrongBoolValue()
+        {
+            var content = "<TestBool>\nLel\n";
+            var fileSystem = CreateMockFileSystem(content);
+            var sut = CreateConfigFileHandler(fileSystem);
+            var result = sut.LoadConfigFromFile(new EmptyArguments());
+        }
+
+        [TestMethod]
         public void LoadConfigFileTestWithEmptyArgumentsWithComments()
         {
             var comment = "#This is a comment";
