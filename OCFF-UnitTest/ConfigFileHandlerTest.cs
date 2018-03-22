@@ -32,6 +32,86 @@ namespace OCFF_UnitTest
             Assert.AreEqual("[Testing]\nis meh.", content);
         }
 
+        [TestMethod]
+        public void WriteToConfigTest()
+        {
+            var comment = "#This is a comment";
+            var key = "[Start]";
+            var value = "Some Value";
+            var fileSystem = CreateMockFileSystem(comment);
+            var sut = CreateConfigFileHandler(fileSystem);
+            var result = sut.WriteToConfig(key, value);
+            Assert.IsTrue(result.KeyExsists(key));
+            var resultList = result.GetDataStoreEntry(key);
+            Assert.IsTrue(resultList.FirstOrDefault().Value == value);
+        }
+
+        [TestMethod]
+        public void LoadConfigFileTestWithEmptyArguments()
+        {
+            var key = "Testing";
+            var fileSystem = CreateMockFileSystem();
+            var sut = CreateConfigFileHandler(fileSystem);
+            var result = sut.LoadConfigFromFile(new EmptyArguments());
+            Assert.IsTrue(result.KeyExsists(key));
+            var resultList = result.GetDataStoreEntry(key);
+            Assert.IsTrue(resultList.FirstOrDefault().Value == "is meh.");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void LoadConfigFileTestWithEmptyArgumentsNotWellFormedHeader()
+        {
+            var content = "{Testing}\n";
+            var fileSystem = CreateMockFileSystem(content);
+            var sut = CreateConfigFileHandler(fileSystem);
+            var result = sut.LoadConfigFromFile(new EmptyArguments());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void LoadConfigFileTestWithEmptyArgumentsNotWellFormedHeader2()
+        {
+            var content = "{Testing}\nHello";
+            var fileSystem = CreateMockFileSystem(content);
+            var sut = CreateConfigFileHandler(fileSystem);
+            var result = sut.LoadConfigFromFile(new EmptyArguments());
+        }
+
+        [TestMethod]
+        public void LoadConfigFileTestWithEmptyArgumentsAndANewLineAtTheEnd()
+        {
+            var key = "Testing";
+            var content = "[Testing]\nis meh.\n\n<TestBool>\nTrue\n";
+            var fileSystem = CreateMockFileSystem(content);
+            var sut = CreateConfigFileHandler(fileSystem);
+            var result = sut.LoadConfigFromFile(new EmptyArguments());
+            Assert.IsTrue(result.KeyExsists(key));
+            var resultList = result.GetDataStoreEntry(key);
+            Assert.IsTrue(resultList.FirstOrDefault().Value == "is meh.");
+            var resultList2 = result.GetDataStoreEntry("TestBool");
+            Assert.IsTrue(resultList2.FirstOrDefault().Value == "True");
+        }
+
+        [TestMethod]
+        public void LoadConfigFileTestWithEmptyArgumentsWithComments()
+        {
+            var comment = "#This is a comment";
+            var fileSystem = CreateMockFileSystem(comment);
+            var sut = CreateConfigFileHandler(fileSystem);
+            var result = sut.LoadConfigFromFile(new EmptyArguments());
+            Assert.IsTrue(sut.GetConfigComments().FirstOrDefault().Comment == comment);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(System.IO.FileNotFoundException))]
+        public void LoadConfigFileTestWithEmptyArgumentsAndEmptyFileSystem()
+        {
+            var fileSystem = CreateEmptyMockFileSystem();
+            var sut = CreateConfigFileHandler(fileSystem);
+            var result = sut.LoadConfigFromFile(new EmptyArguments());
+        }
+
         private static string InitConfigFile(bool overwrite, bool withEmpty)
         {
             MockFileSystem fileSystem;
@@ -42,7 +122,7 @@ namespace OCFF_UnitTest
             else
             {
                 fileSystem = CreateMockFileSystem();
-            }  
+            }
             var sut = CreateConfigFileHandler(fileSystem);
             sut.InitConfigFile(overwrite);
             var configFile = fileSystem.GetFile(@"c:\Test\ConfigFile.ocff");
@@ -71,37 +151,6 @@ namespace OCFF_UnitTest
         private static ConfigFileHandler CreateConfigFileHandler(MockFileSystem fileSystem)
         {
             return new ConfigFileHandler(new EmptyComputeFuncs(), new EmptyEnumerationFuncs(), fileSystem);
-        }
-
-        [TestMethod]
-        public void LoadConfigFileTestWithEmptyArguments()
-        {
-            var key = "Testing";
-            var fileSystem = CreateMockFileSystem();
-            var sut = CreateConfigFileHandler(fileSystem);
-            var result = sut.LoadConfigFromFile(new EmptyArguments());
-            Assert.IsTrue(result.KeyExsists(key));
-            var resultList = result.GetDataStoreEntry(key);
-            Assert.IsTrue(resultList.FirstOrDefault().Value == "is meh.");
-        }
-
-        [TestMethod]
-        public void LoadConfigFileTestWithEmptyArgumentsWithComments()
-        {
-            var comment = "#This is a comment";
-            var fileSystem = CreateMockFileSystem(comment);
-            var sut = CreateConfigFileHandler(fileSystem);
-            var result = sut.LoadConfigFromFile(new EmptyArguments());
-            Assert.IsTrue(sut.GetConfigComments().FirstOrDefault().Comment == comment);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(System.IO.FileNotFoundException))]
-        public void LoadConfigFileTestWithEmptyArgumentsAndEmptyFileSystem()
-        {
-            var fileSystem = CreateEmptyMockFileSystem();
-            var sut = CreateConfigFileHandler(fileSystem);
-            var result = sut.LoadConfigFromFile(new EmptyArguments());
         }
     }
 }

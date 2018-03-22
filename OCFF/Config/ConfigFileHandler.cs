@@ -12,6 +12,7 @@ namespace OCFF
         private ConfigParsedData ConfigParsedData;
         private IComputeFunc ComputeFuncs;
         private IEnumerationFunc EnumerationFuncs;
+        private IArguments Arguments;
         private readonly IFileSystem FileSystem;
         private string FileName { get; }
 
@@ -46,6 +47,7 @@ namespace OCFF
 
         public ConfigParsedData LoadConfigFromFile(IArguments arguments)
         {
+            Arguments = arguments;
             try
             {
                 var lines = new List<string>();
@@ -70,7 +72,7 @@ namespace OCFF
                 {
                     ConfigData.Add(ParseSection(lines));
                 }
-                return ConfigParsedData = ConfigData.ComputeAndReplace(arguments, ComputeFuncs, EnumerationFuncs);
+                return ConfigParsedData = ConfigData.ComputeAndReplace(Arguments, ComputeFuncs, EnumerationFuncs);
             }
             catch (Exception ex)
             {
@@ -78,9 +80,10 @@ namespace OCFF
             }   
         }
 
-        public void WriteToConfig(string section, string value)
+        public ConfigParsedData WriteToConfig(string section, string value)
         {
             ConfigData.Add(CreateConfigSection(section, value));
+            return ConfigParsedData = ConfigData.ComputeAndReplace(Arguments, ComputeFuncs, EnumerationFuncs);
         }
 
         private ConfigSection CreateConfigSection(string section, string value, bool isStringHeader = true)
