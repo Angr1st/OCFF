@@ -68,6 +68,20 @@ namespace OCFF
             return returnList;
         }
 
+        public string Print() => $"{PrintHeader()}\n{RawValue}";
+
+        private string PrintHeader()
+        {
+            if (IsString)
+            {
+                return $"[{Key}]";
+            }
+            else
+            {
+                return $"<{Key}>";
+            }
+        }
+
         private void ReplaceAllVariables()
         {
             ReplaceVariables.ForEach(x => Value = Value.Replace(x.PräfixedName, x.Token));

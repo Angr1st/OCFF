@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -81,12 +82,12 @@ namespace OCFF
                     if (innerItem is ConfigComputeSet)
                     {
                         var innerComputeItem = innerItem as ConfigComputeSet;
-                        stringBuilderList = stringBuilderList.SelectMany(y => GetParameter(innerComputeItem.Name,arguments,dictionary).Select(x => new StringBuilder(y.ToString().Replace(innerComputeItem.Token, innerComputeItem.Compute(x))))).ToList();
+                        stringBuilderList = stringBuilderList.SelectMany(y => GetParameter(innerComputeItem.Name, arguments, dictionary).Select(x => new StringBuilder(y.ToString().Replace(innerComputeItem.Token, innerComputeItem.Compute(x))))).ToList();
                     }
                     else if (innerItem is ConfigEnumerationSet)
                     {
                         var innerEnumerationItem = innerItem as ConfigEnumerationSet;
-                        var enumeration = GetParameter(innerEnumerationItem.Name,arguments,dictionary).SelectMany(y=> innerEnumerationItem.GetEnumerable(y));
+                        var enumeration = GetParameter(innerEnumerationItem.Name, arguments, dictionary).SelectMany(y => innerEnumerationItem.GetEnumerable(y));
                         stringBuilderList = stringBuilderList.SelectMany(y => enumeration.Select(x => new StringBuilder(y.ToString().Replace(innerEnumerationItem.Token, x)))).ToList();
                     }
                     else
@@ -116,7 +117,9 @@ namespace OCFF
 
         public string Read(string key) => DataStore.Find(x => x.Key == key).Value;
 
-        private IEnumerable<string> GetParameter(string argumentName,IArguments arguments, Dictionary<string, List<string>> dict)
+        public string Print() => string.Join("\n", Comments.Select(x => x.Print())) + "\n" + string.Join("\n\n", DataStore.Select(x => x.Print()));
+
+        private IEnumerable<string> GetParameter(string argumentName, IArguments arguments, Dictionary<string, List<string>> dict)
         {
             try
             {
@@ -128,9 +131,9 @@ namespace OCFF
                 {
                     return dict[argumentName];
                 }
-                catch
+                catch(Exception ex)
                 {
-throw;
+                    throw new ArgumentException($"{nameof(argumentName)}:{argumentName}", ex);
                 }
             }
         }

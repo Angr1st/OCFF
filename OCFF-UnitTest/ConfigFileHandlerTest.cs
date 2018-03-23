@@ -166,6 +166,41 @@ namespace OCFF_UnitTest
         }
 
         [TestMethod]
+        public void LoadConfigFileTestWithEmptyArgumentRewriteTest()
+        {
+            var commentValue = "This is a comment";
+            var testSectionHeader = "TestHeader";
+            var testSectionValue = "This is a test value";
+            var boolHeader = "BoolHeader";
+            var boolValue = false;
+            var fileContent = $"#{commentValue}\n[{testSectionHeader}]\n{testSectionValue}\n\n<{boolHeader}>\n{boolValue.ToString()}";
+            var fileSystem = CreateEmptyMockFileSystem();
+            var sut = CreateEmptyConfigFileHandler(fileSystem);
+            sut.InitConfigFile(false);
+            var result = sut.LoadConfigFromFile(new EmptyArguments());
+            sut.WriteCommentToConfig(commentValue);
+            sut.WriteToConfig(testSectionHeader, testSectionValue);
+            sut.WriteToConfig(boolHeader, boolValue);
+            sut.UpdateConfigFile();
+            var newConfigContent = fileSystem.GetFile("c:\\Test\\ConfigFile.ocff").TextContents;
+            Assert.IsTrue(newConfigContent == fileContent);
+        }
+
+        [TestMethod]
+        public void InitConfigWithDoubleWriteToConfig()
+        {
+            var testHeader = "Test";
+            var testValue = "Some Value";
+            var fileSystem = CreateEmptyMockFileSystem();
+            var sut = CreateEmptyConfigFileHandler(fileSystem);
+            sut.InitConfigFile(true);
+            sut.LoadConfigFromFile(new EmptyArguments());
+            sut.WriteToConfig(testHeader, testValue);
+            var result = sut.WriteToConfig(testHeader, testValue);
+            Assert.IsTrue(result.GetDataStoreEntry(testHeader).Count() == 1);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(System.IO.FileNotFoundException))]
         public void LoadConfigFileTestWithEmptyArgumentsAndEmptyFileSystem()
         {

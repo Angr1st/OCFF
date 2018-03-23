@@ -12,5 +12,7 @@ namespace OCFF
         {
             Comment = commment;
         }
+
+        public string Print() => Comment;
     }
 }

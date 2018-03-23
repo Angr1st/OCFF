@@ -86,6 +86,25 @@ namespace OCFF
             return ConfigParsedData = ConfigData.ComputeAndReplace(Arguments, ComputeFuncs, EnumerationFuncs);
         }
 
+        public ConfigParsedData WriteToConfig(string section, bool value)
+        {
+            ConfigData.Add(CreateConfigSection(section, value.ToString(), false));
+            return ConfigParsedData = ConfigData.ComputeAndReplace(Arguments, ComputeFuncs, EnumerationFuncs);
+        }
+
+        public ConfigParsedData WriteCommentToConfig(string comment)
+        {
+            ConfigData.AddComment(new ConfigComment($"#{comment}"));
+            return ConfigParsedData = ConfigData.ComputeAndReplace(Arguments, ComputeFuncs, EnumerationFuncs);
+        }
+
+        public void UpdateConfigFile()
+        {
+            FileSystem.File.Delete(GetFilePath());
+            var test = ConfigData.Print();
+            FileSystem.File.AppendAllText(GetFilePath(),test );
+        }
+
         private ConfigSection CreateConfigSection(string section, string value, bool isStringHeader = true)
         {
             return new ConfigSection(section, value, isStringHeader: isStringHeader, computeFuncs: ComputeFuncs, enumerationFuncs: EnumerationFuncs);
