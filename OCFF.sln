@@ -7,11 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OCFF", "OCFF\OCFF.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCFF-UnitTest", "OCFF-UnitTest\OCFF-UnitTest.csproj", "{3FE17EDC-22B1-45D6-8886-0DFC8AA68140}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{10590654-A52E-4645-8455-68A3006153A5}"
-	ProjectSection(SolutionItems) = preProject
-		OCFF\OCFF.StrongName.pfx = OCFF\OCFF.StrongName.pfx
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		BuildUnitTest|Any CPU = BuildUnitTest|Any CPU
