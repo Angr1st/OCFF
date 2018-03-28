@@ -5,15 +5,22 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Description>OCFF or Omnipotent Config File Format is a Package that Provides the capabillitys of the OCF-Format in a .NET Library.</Description>
     <Authors>Torben Clasen</Authors>
-    <Company>ITVT GmbH</Company>
+    <Company></Company>
     <Configurations>Debug;Release;BuildUnitTest</Configurations>
+    <Copyright>Torben Clasen 2018</Copyright>
+    <PackageTags>Config</PackageTags>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>OCFF.StrongName.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
     <PackageReference Include="System.IO.FileSystem.AccessControl" Version="4.4.0" />
     <PackageReference Include="System.IO.FileSystem.DriveInfo" Version="4.3.1" />
+    <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
     <PackageReference Include="System.IO.FileSystem.Watcher" Version="4.3.0" />
     <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />
+    <PackageReference Include="System.Security.AccessControl" Version="4.4.1" />
   </ItemGroup>
 
   <ItemGroup>
