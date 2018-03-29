@@ -7,7 +7,7 @@
     <Authors>Torben Clasen</Authors>
     <Company></Company>
     <Configurations>Debug;Release;BuildUnitTest</Configurations>
-    <Copyright>Torben Clasen 2018</Copyright>
+    <Copyright>Copyright © Torben Clasen 2018</Copyright>
     <PackageTags>Config</PackageTags>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>OCFF.StrongName.pfx</AssemblyOriginatorKeyFile>
