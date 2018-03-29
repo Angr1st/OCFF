@@ -11,6 +11,9 @@
     <PackageTags>Config</PackageTags>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>OCFF.StrongName.pfx</AssemblyOriginatorKeyFile>
+    <RepositoryUrl>https://github.com/Angr1st/OCFF.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseUrl>https://github.com/Angr1st/OCFF/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>
