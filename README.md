@@ -32,3 +32,9 @@ $ComputeHeader
 [UsingEnumeration]
 &EnumerationHeader
 ```
+
+Use
+
+`Install-Package OCFF`
+
+to install the Nuget-Package.
