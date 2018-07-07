@@ -17,19 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
-    <PackageReference Include="System.IO.FileSystem.AccessControl" Version="4.4.0" />
-    <PackageReference Include="System.IO.FileSystem.DriveInfo" Version="4.3.1" />
-    <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
-    <PackageReference Include="System.IO.FileSystem.Watcher" Version="4.3.0" />
-    <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />
-    <PackageReference Include="System.Security.AccessControl" Version="4.4.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="System.IO.Abstractions">
-      <HintPath>..\System.IO.Abstractions.dll</HintPath>
-    </Reference>
+    <PackageReference Include="System.IO.Abstractions" Version="2.1.0.186" />
   </ItemGroup>
 
 </Project>
