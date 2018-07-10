@@ -241,7 +241,8 @@ namespace OCFF_UnitTest
 
         private static MockFileSystem CreateEmptyMockFileSystem()
         {
-            var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData> { }, "c:\\Test");
+            var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData>(), "c:\\Test");
+            fileSystem.AddDirectory("Test");
             return fileSystem;
         }
 
