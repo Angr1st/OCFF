@@ -10,8 +10,8 @@ namespace OCFF
     {
         private ConfigData ConfigData;
         private ConfigParsedData ConfigParsedData;
-        private IComputeFunc ComputeFuncs;
-        private IEnumerationFunc EnumerationFuncs;
+        private readonly IComputeFunc ComputeFuncs;
+        private readonly IEnumerationFunc EnumerationFuncs;
         private IArguments Arguments;
         private readonly IFileSystem FileSystem;
         private string FileName { get; }
