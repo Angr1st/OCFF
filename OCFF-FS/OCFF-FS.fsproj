@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>OCFF_FS</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Config\Config.fs" />
+    <Compile Include="Config\Interfaces\Interfaces.fs" />
+  </ItemGroup>
+
+</Project>
