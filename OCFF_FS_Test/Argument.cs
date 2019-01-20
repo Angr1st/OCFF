@@ -34,10 +34,22 @@ namespace OCFF_FS_Test
         {
             throw new NotImplementedException();
         }
+
+        public FSharpFunc<string, FSharpList<string>> GetEnumerationFs(string value)
+        {
+            return innerFunc().ToFSharpFunc();
+
+            Func<string, FSharpList<string>> innerFunc() => (innerValue) =>new FSharpList<string>(innerValue, FSharpList<string>.Empty);
+        }
     }
 
     class ComputationFunc : IComputeFunc
     {
+        public FSharpFunc<string, string> GetFuncFs(string value)
+        {
+            throw new NotImplementedException();
+        }
+
         Func<string, string> IComputeFunc.GetFunc(string value)
         {
             throw new NotImplementedException();

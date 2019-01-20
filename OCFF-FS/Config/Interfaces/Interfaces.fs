@@ -7,6 +7,8 @@ type IArguments =
 
 type IComputeFunc =
     abstract member GetFunc: string -> System.Func<string,string>
+
+    abstract member GetFuncFs: string -> (string -> string)
     
 type IConfigSet =
     abstract member PrefixedName: string with get
@@ -19,6 +21,8 @@ type IConfigSet =
 
 type IEnumerationFunc =
     abstract member GetEnumeration: string -> System.Func<string,System.Collections.Generic.List<string>>
+
+    abstract member GetEnumerationFs: string -> (string -> string list)
 
 [<Extension>]
 type public FSharpFuncUtil = 
