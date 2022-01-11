@@ -7,8 +7,8 @@ namespace OCFF
 {
     class ConfigData
     {
-        private List<ConfigComment> Comments;
-        private List<ConfigSection> DataStore;
+        private readonly List<ConfigComment> Comments;
+        private readonly List<ConfigSection> DataStore;
 
         public ConfigData()
         {
@@ -108,7 +108,7 @@ namespace OCFF
             {
                 return new List<string> { arguments.GetArgument(argumentName) };
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 try
                 {

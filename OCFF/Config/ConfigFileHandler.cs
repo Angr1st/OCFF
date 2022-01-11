@@ -8,7 +8,7 @@ namespace OCFF
 {
     public class ConfigFileHandler
     {
-        private ConfigData ConfigData;
+        private readonly ConfigData ConfigData;
         private ConfigParsedData ConfigParsedData;
         private readonly IComputeFunc ComputeFuncs;
         private readonly IEnumerationFunc EnumerationFuncs;
@@ -83,19 +83,22 @@ namespace OCFF
         public ConfigParsedData WriteToConfig(string section, string value)
         {
             ConfigData.Add(CreateConfigSection(section, value));
-            return ConfigParsedData = ConfigData.ComputeAndReplace(Arguments, ComputeFuncs, EnumerationFuncs);
+            ConfigParsedData = ConfigData.ComputeAndReplace(Arguments, ComputeFuncs, EnumerationFuncs);
+            return ConfigParsedData;
         }
 
         public ConfigParsedData WriteToConfig(string section, bool value)
         {
             ConfigData.Add(CreateConfigSection(section, value.ToString(), false));
-            return ConfigParsedData = ConfigData.ComputeAndReplace(Arguments, ComputeFuncs, EnumerationFuncs);
+            ConfigParsedData = ConfigData.ComputeAndReplace(Arguments, ComputeFuncs, EnumerationFuncs);
+            return ConfigParsedData;
         }
 
         public ConfigParsedData WriteCommentToConfig(string comment)
         {
             ConfigData.AddComment(new ConfigComment($"#{comment}"));
-            return ConfigParsedData = ConfigData.ComputeAndReplace(Arguments, ComputeFuncs, EnumerationFuncs);
+            ConfigParsedData = ConfigData.ComputeAndReplace(Arguments, ComputeFuncs, EnumerationFuncs);
+            return ConfigParsedData;
         }
 
         public void UpdateConfigFile()

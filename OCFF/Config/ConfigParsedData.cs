@@ -5,7 +5,7 @@ namespace OCFF
 {
     public class ConfigParsedData
     {
-        private Dictionary<string, List<ConfigSection>> DataStore;
+        private readonly Dictionary<string, List<ConfigSection>> DataStore;
 
         public ConfigParsedData()
         {
