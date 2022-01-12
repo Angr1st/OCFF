@@ -72,7 +72,8 @@ namespace OCFF
                 {
                     ConfigData.Add(ParseSection(lines));
                 }
-                return ConfigParsedData = ConfigData.ComputeAndReplace(Arguments, ComputeFuncs, EnumerationFuncs);
+                ConfigParsedData = ConfigData.ComputeAndReplace(Arguments, ComputeFuncs, EnumerationFuncs);
+                return ConfigParsedData;
             }
             catch (Exception ex)
             {
