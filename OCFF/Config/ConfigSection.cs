@@ -10,12 +10,12 @@ namespace OCFF
         public string Value { get; private set; }
         public string RawValue { get; }
         public bool IsString { get; }
-        private List<ConfigComputeSet> ComputeVariables;
-        private List<ConfigReplaceSet> ReplaceVariables;
-        private List<ConfigEnumerationSet> EnumerationVariables;
+        private readonly List<ConfigComputeSet> ComputeVariables;
+        private readonly List<ConfigReplaceSet> ReplaceVariables;
+        private readonly List<ConfigEnumerationSet> EnumerationVariables;
         private int NumberOfVariables = 0;
-        private IComputeFunc ComputeFuncs;
-        private IEnumerationFunc EnumerationFuncs;
+        private readonly IComputeFunc ComputeFuncs;
+        private readonly IEnumerationFunc EnumerationFuncs;
 
         public ConfigSection(string key, string value, bool isStringHeader, IComputeFunc computeFuncs, IEnumerationFunc enumerationFuncs)
         {

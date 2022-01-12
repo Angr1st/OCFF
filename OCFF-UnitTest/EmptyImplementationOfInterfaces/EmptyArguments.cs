@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OCFF;
+﻿using OCFF;
+using System;
 
 namespace OCFF_UnitTest
 {
     class EmptyArguments : IArguments
     {
-        public string GetArgument(string argumentName)
+        public ArgumentResult GetArgument(string argumentName)
         {
             throw new NotImplementedException();
         }
