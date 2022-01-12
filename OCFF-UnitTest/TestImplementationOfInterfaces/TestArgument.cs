@@ -1,9 +1,4 @@
 ﻿using OCFF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OCFF_UnitTest
 {
@@ -13,14 +8,14 @@ namespace OCFF_UnitTest
 
         public TestArgument(string test) => TestFunc = test;
 
-        public string GetArgument(string argumentName)
+        public ArgumentResult GetArgument(string argumentName)
         {
             switch (argumentName)
             {
                 case nameof(TestFunc):
-                    return TestFunc;
+                    return new ArgumentResult(TestFunc);
                 default:
-                    throw new ArgumentException(nameof(argumentName));
+                    return ArgumentResult.Default();
             }
         }
     }
