@@ -2,7 +2,7 @@
 {
     public interface IArguments
     {
-        string GetArgument(string argumentName);
+        ArgumentResult GetArgument(string argumentName);
     }
 }
 
