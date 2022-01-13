@@ -65,7 +65,7 @@ namespace OCFF_UnitTest
             var content = "{Testing}\n";
             var fileSystem = CreateMockFileSystem(content);
             var sut = CreateEmptyConfigFileHandler(fileSystem);
-            var result = sut.LoadConfigFromFile(new EmptyArguments());
+            sut.LoadConfigFromFile(new EmptyArguments());
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace OCFF_UnitTest
             var content = "{Testing}\nHello";
             var fileSystem = CreateMockFileSystem(content);
             var sut = CreateEmptyConfigFileHandler(fileSystem);
-            var result = sut.LoadConfigFromFile(new EmptyArguments());
+            sut.LoadConfigFromFile(new EmptyArguments());
         }
 
         [TestMethod]
@@ -152,7 +152,7 @@ namespace OCFF_UnitTest
             var content = "<TestBool>\nLel\n";
             var fileSystem = CreateMockFileSystem(content);
             var sut = CreateEmptyConfigFileHandler(fileSystem);
-            var result = sut.LoadConfigFromFile(new EmptyArguments());
+            sut.LoadConfigFromFile(new EmptyArguments());
         }
 
         [TestMethod]
@@ -161,7 +161,7 @@ namespace OCFF_UnitTest
             var comment = "#This is a comment";
             var fileSystem = CreateMockFileSystem(comment);
             var sut = CreateEmptyConfigFileHandler(fileSystem);
-            var result = sut.LoadConfigFromFile(new EmptyArguments());
+            sut.LoadConfigFromFile(new EmptyArguments());
             Assert.IsTrue(sut.GetConfigComments().FirstOrDefault().Comment == comment);
         }
 
@@ -177,7 +177,7 @@ namespace OCFF_UnitTest
             var fileSystem = CreateEmptyMockFileSystem();
             var sut = CreateEmptyConfigFileHandler(fileSystem);
             sut.InitConfigFile(false);
-            var result = sut.LoadConfigFromFile(new EmptyArguments());
+            sut.LoadConfigFromFile(new EmptyArguments());
             sut.WriteCommentToConfig(commentValue);
             sut.WriteToConfig(testSectionHeader, testSectionValue);
             sut.WriteToConfig(boolHeader, boolValue);
@@ -206,7 +206,7 @@ namespace OCFF_UnitTest
         {
             var fileSystem = CreateEmptyMockFileSystem();
             var sut = CreateEmptyConfigFileHandler(fileSystem);
-            var result = sut.LoadConfigFromFile(new EmptyArguments());
+            sut.LoadConfigFromFile(new EmptyArguments());
         }
 
         private static string InitConfigFile(bool overwrite, bool withEmpty)

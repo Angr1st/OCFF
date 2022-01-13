@@ -7,8 +7,8 @@ namespace OCFF
 {
     class ConfigData
     {
-        private List<ConfigComment> Comments;
-        private List<ConfigSection> DataStore;
+        private readonly List<ConfigComment> Comments;
+        private readonly List<ConfigSection> DataStore;
 
         public ConfigData()
         {
@@ -106,18 +106,23 @@ namespace OCFF
         {
             try
             {
-                return new List<string> { arguments.GetArgument(argumentName) };
-            }
-            catch (System.Exception)
-            {
-                try
+                var argResult = arguments.GetArgument(argumentName);
+                if (argResult.IsFound())
+                {
+                    return new List<string> { argResult.Result };
+                }
+                else
                 {
                     return dict[argumentName];
                 }
-                catch(Exception ex)
+            }
+            catch (Exception ex)
+            {
+                if (dict.ContainsKey(argumentName))
                 {
-                    throw new ArgumentException($"{nameof(argumentName)}:{argumentName}", ex);
+                    return dict[argumentName];
                 }
+                throw new ArgumentException($"{nameof(argumentName)}:{argumentName}", ex);
             }
         }
 
